@@ -1,11 +1,14 @@
 
-import {useParams} from "react-router-dom"
+import {useParams,useNavigate} from "react-router-dom"
 import React, { useEffect, useState } from 'react';
+
 import userEvent from "@testing-library/user-event";
 export default function Ok({ todoList,setTodoList} ){
+    const navigate = useNavigate();
     const {id}=useParams()
-    const [newTodo, setNewTodo] = useState("");
+ 
     let theValue= todoList.filter((el)=>el.id==id)
+    const [newTodo, setNewTodo] = useState(theValue[0].todo);
     const [value, setValue] = useState(theValue[0].todo);
    
     const handleChange=(event)=>{
@@ -25,7 +28,7 @@ export default function Ok({ todoList,setTodoList} ){
     return(
         <div>
      <input type="text"  value={value} onChange={handleChange}  placeholder="enter a Todo" ></input>
-    <button onClick={()=>changeTodo()}>OK</button>
+    <button onClick={()=>{changeTodo(); navigate("/");}}>OK</button>
         </div>
  
     )
